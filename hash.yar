@@ -67,9 +67,10 @@ rule SHA2_BLAKE2_IVs {
 rule SHA256_Initial_values {
     meta:
 		author = "spelissier"
-		description = "SHA2 initial values H(0) from NIST.FIPS.180-4"
+		description = "SHA2 initial values H(0) from FIPS.180-4"
 		date = "2024-08"
 		version = "0.1"
+		reference = "https://csrc.nist.gov/pubs/fips/180-4/upd1/final"
 	strings:
 		$c0 = { 6a09e667 }
         $c1 = { bb67ae85 }
