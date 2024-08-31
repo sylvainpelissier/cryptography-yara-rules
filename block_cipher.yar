@@ -1,3 +1,15 @@
+rule ARIA_SB2
+{	meta:
+		author = "spelissier"
+		description = "Aria SBox 2"
+		date = "2020-12"
+		reference="http://210.104.33.10/ARIA/doc/ARIA-specification-e.pdf#page=7"
+	strings:
+		$c0 = { E2 4E 54 FC 94 C2 4A CC 62 0D 6A 46 3C 4D 8B D1 5E FA 64 CB B4 97 BE 2B BC 77 2E 03 D3 19 59 C1 }
+	condition:
+		$c0
+}
+
 rule Blowfish_p_array_BE
 {	meta:
 		author = "spelissier"
@@ -56,6 +68,16 @@ rule Blowfish_p_array_LE
 		4 of them
 }
 
+rule RijnDael_AES_CHAR
+{	meta:
+		author = "_pusher_"
+		description = "RijnDael AES (check2) [char]"
+		date = "2016-06"
+	strings:
+		$c0 = { 63 7C 77 7B F2 6B 6F C5 30 01 67 2B FE D7 AB 76 CA 82 C9 7D FA 59 47 F0 AD D4 A2 AF 9C A4 72 C0 }
+	condition:
+		$c0
+}
 
 rule SM4_SBox
 {	meta:

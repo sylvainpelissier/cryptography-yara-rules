@@ -1,3 +1,33 @@
+rule Chacha_128_constant {
+    meta:
+		author = "spelissier"
+		description = "Look for 128-bit key Chacha stream cipher constant"
+		date = "2019-12"
+		reference = "https://www.ecrypt.eu.org/stream/salsa20pf.html"
+	strings:
+		$c0 = "expand 16-byte k"
+	condition:
+		$c0
+}
+
+rule Chacha_256_constant {
+    meta:
+		author = "spelissier"
+		description = "Look for 256-bit key Chacha stream cipher constant"
+		date = "2019-12"
+		reference = "https://tools.ietf.org/html/rfc8439#page-8"
+	strings:
+		$c = "expand 32-byte k"
+		$split_64_1 = "expand 3"
+		$split_64_2 = "2-byte k"
+        $split_32_1 = "expa"
+		$split_32_2 = "nd 3"
+        $split_32_3 = "2-by"
+		$split_32_4 = "te k"
+	condition:
+		$c or ( 2 of ($split_64_*)) or ( 4 of ($split_32_*))
+}
+
 rule Sosemanuk_constants
 {	meta:
 		author = "spelissier"
@@ -52,34 +82,4 @@ rule Sosemanuk_encrypt_tables
         }
     condition:
         1 of ($sosemanuk_encrypt_*)
-}
-
-rule Chacha_128_constant {
-    meta:
-		author = "spelissier"
-		description = "Look for 128-bit key Chacha stream cipher constant"
-		date = "2019-12"
-		reference = "https://www.ecrypt.eu.org/stream/salsa20pf.html"
-	strings:
-		$c0 = "expand 16-byte k"
-	condition:
-		$c0
-}
-
-rule Chacha_256_constant {
-    meta:
-		author = "spelissier"
-		description = "Look for 256-bit key Chacha stream cipher constant"
-		date = "2019-12"
-		reference = "https://tools.ietf.org/html/rfc8439#page-8"
-	strings:
-		$c = "expand 32-byte k"
-		$split_64_1 = "expand 3"
-		$split_64_2 = "2-byte k"
-        $split_32_1 = "expa"
-		$split_32_2 = "nd 3"
-        $split_32_3 = "2-by"
-		$split_32_4 = "te k"
-	condition:
-		$c or ( 2 of ($split_64_*)) or ( 4 of ($split_32_*))
 }
