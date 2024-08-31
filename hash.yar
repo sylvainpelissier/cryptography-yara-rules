@@ -21,6 +21,28 @@ rule MD5_Constants {
 		5 of them
 }
 
+rule RIPEMD160_Constants {
+	meta:
+		author = "Ek0n (@Ek0n) and spelissier"
+		description = "Look for RIPEMD-160 round constants"
+		date = "2024-03"
+		reference = "https://github.com/openssl/openssl/blob/0cd9dd703ea575699b2d3cd74f1b8224447f4352/crypto/ripemd/rmdconst.h"
+		version = "0.3"
+	strings:
+		$KR0 = { e68ba250 }
+		$KR1 = { 24d14d5c }
+		$KR2 = { f33e706d }
+		$KR3 = { e9766d7a }
+
+		$KL1 = { 9979825a }
+		$KL2 = { a1ebd96e }
+		$KL3 = { dcbc1b8f }
+		$KL4 = { 4efd53a9 }
+
+	condition:
+		4 of them
+}
+
 rule SHA1_Constants {
 	meta:
 		author = "phoul (@phoul)"
