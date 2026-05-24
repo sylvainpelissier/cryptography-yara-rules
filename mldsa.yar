@@ -23,13 +23,35 @@ rule MLDSA_65_87_Constants {
 		all of them
 }
 
+rule MLDSA_Dilithium_NTT_zetas_LE
+{
+    meta:
+        description = "Detects the beginning of ML-DSA NTT zeta table in little endian form"
+        author = "spelissier"
+        date = "2026-05-22"
+        reference = "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf#page=61"
+    strings:
+        // 32-bit values, little-endian
+        $zetas_le_1 = { 02 5e 49 00 }
+        $zetas_le_2 = { 67 75 39 00 } 
+        $zetas_le_3 = { 69 65 39 00 }
+        $zetas_le_4 = { 2b 06 4f 00 }
+        $zetas_le_5 = { 73 df 53 00 }
+        $zetas_le_6 = { 33 e0 4f 00 } 
+        $zetas_le_7 = { 6b 06 4f 00 }
+        $zetas_le_8 = { ae b1 76 00 }
+        
+    condition:
+        4 of them
+}
+
 rule MLDSA_Dilithium_NTT_zetas_montgomery_LE
 {
     meta:
-        description = "Detects the beginning of ML-DSA NTT zeta table in little endian"
+        description = "Detects the beginning of ML-DSA NTT zeta table in little endian in Montgomery form"
         author = "spelissier"
         date = "2026-05-22"
-
+        reference = "https://github.com/openssl/openssl/blob/83ef5622a64d34885a7d6da866accf2281879c7d/crypto/ml_dsa/ml_dsa_ntt.c#L80"
     strings:
         // 32-bit values, little-endian
         $zetas_le_1 = { f7 64 00 00 } 
